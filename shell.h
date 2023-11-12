@@ -14,5 +14,10 @@
 int add_numbers(int a, int b);
 char *tag_comment(char *input);
 int main(int argc, char *argv[], char **environ);
+void handle_cd(char **argc, int argv)
+void handle_exit(char *input, int exit_position)
+void print_env(char **environment)
+int shell_exit(char **args, char *input)
+
 
 #endif /* SHELL_H */
