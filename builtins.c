@@ -46,8 +46,8 @@ void handle_cd(char **argc, int argv)
 {
 	const char *home_dir, *old_dir;
 
-	home_dir = getenvironment("HOME");
-	old_dir = getenvironmnet("PREVPWD");
+	home_dir = getenv("HOME");
+	old_dir = getenv("PREVPWD");
 
 	if (argv == 1 || strcmp(argc[1], "~") == 0)
 	{
@@ -79,16 +79,16 @@ void handle_cd(char **argc, int argv)
 
 /**
   * print_env - pwd the current environ variables
-  * @environment: arg inputs
+  * @env: arg inputs
   */
 
-void print_env(char **environment)
+void print_env(char **env)
 {
-	while (*environment != NULL)
+	while (*env != NULL)
 	{
-		write(1, *environmnet, strlen(*environment));
+		write(1, *env, strlen(*env));
 		write(1, "\n", 1);
-		environmnet++;
+		env++;
 	}
 }
 
