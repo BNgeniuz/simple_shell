@@ -7,6 +7,7 @@
   * @input: input cmd
   * @env: get environ variables
   *
+  *By: Edmund and Bruce
   * Return: 1 if succeed, 0 when fail
   */
 

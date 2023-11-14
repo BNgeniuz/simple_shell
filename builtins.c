@@ -4,7 +4,7 @@
   * shell_exit - Handles the exit status
   * @args: Arguments to the function
   * @input: Checks the status of exit
-  *
+  * By: Edmund and Bruce
   * Return: Status of exit, 1 if otherwise
   */
 
