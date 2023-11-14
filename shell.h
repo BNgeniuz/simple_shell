@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <unistd.h>
 
 void print_numbers(void);
 char *tag_comment(char *input);
@@ -17,6 +18,7 @@ int main(int argc, char *argv[], char **environ);
 void handle_cd(char **argc, int argv);
 void handle_exit(char *input, int exit_position);
 void print_env(char **environment);
+void print_env(void);
 
 /* command functions */
 int startsWithForwardSlash(char const *str);

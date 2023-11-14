@@ -7,6 +7,7 @@
   * @input: input cmd
   * @env: get environ variables
   *
+  *By: Edmund and Bruce
   * Return: 1 if succeed, 0 when fail
   */
 
@@ -142,5 +143,5 @@ char *read_input(void)
 
 	input_buff = handle_comment(input_buff);
 
-	return (input_buffer);
+	return (input_buff);
 }

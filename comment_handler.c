@@ -3,7 +3,7 @@
 /**
   * tag_comment - code to handles the '#'
   * @input: value to be inputed
-  *
+  * By : Edmund and Bruce
   * Return: Always success
   */
 
