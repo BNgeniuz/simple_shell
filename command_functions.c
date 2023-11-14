@@ -142,5 +142,5 @@ char *read_input(void)
 
 	input_buff = handle_comment(input_buff);
 
-	return (input_buffer);
+	return (input_buff);
 }
