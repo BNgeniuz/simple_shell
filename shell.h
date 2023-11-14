@@ -21,9 +21,9 @@ void print_env(char **environment);
 void print_env(void);
 
 /* command functions */
-int startsWithForwardSlash(char const *str);
-char *get_file_path(char *file_name);
-char *get_file_loc(char *path, char *file_name);
+int startswith_forwardslash(char const *str);
+char *get_files_path(char *file_name);
+char *get_files_loc(char *path, char *file_name);
 void execute_command(char *input, char *argv[], char **env);
 char *read_input(void);
 void print_prompt(void);
