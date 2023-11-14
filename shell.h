@@ -11,7 +11,7 @@
 #include <fcntl.h>
 #include <errno.h>
 
-int add_numbers(int a, int b);
+void print_numbers(void);
 char *tag_comment(char *input);
 int main(int argc, char *argv[], char **environ);
 void handle_cd(char **argc, int argv);
