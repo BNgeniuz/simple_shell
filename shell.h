@@ -4,8 +4,8 @@
 /**
  * Header File - shell.h
  *
- * Authors: Godwin Bruce - Edmund Boateng
- * Cohort: 19
+ * Authors: Godwin Bruce - Nana Esi
+ * Cohort: 17 - BENG
 */
 
 #include <stdio.h>
@@ -45,6 +45,76 @@
 extern char **environ;
 
 
+/**
+ * struct liststr - singly str link list
+ * @num: the numb input
+ * @str: str
+ * @next: pts to next node
+ */
+typedef struct liststr
+{
+	int num;
+	char *str;
+	struct liststr *next;
+} list_t;
+
+/**
+ * struct passinfo - pseudo-arguements to pass a function,
+ * uniform prototype for fnxtn ptr struct
+ * @arg: str generated from getline containing args
+ * @argv: array vector str for arg
+ * @path: str command path
+ * @argc: arg count
+ * @line_count: error count
+ * @err_num: error code for exit()s
+ * @linecount_flag: if on count this line of input
+ * @fname: input filename
+ * @env: linked list cp of environ
+ * @environ: cmodified cp of environ from LL envrn
+ * @history:  node
+ * @alias: alias node
+ * @env_changed: environ changed
+ * @status: return status of last exec.  command
+ * @cmd_buf: addr of ptr to cmd_buf, on if chaining
+ * @cmd_buf_type: CMD_type ||, &&, ;
+ * @readfd: file discriptor from which to read line input
+ * @histcount: history line numb cnt
+ */
+typedef struct passinfo
+{
+	char *arg;
+	char **argv;
+	char *path;
+	int argc;
+	unsigned int line_count;
+	int err_num;
+	int linecount_flag;
+	char *fname;
+	list_t *env;
+	list_t *history;
+	list_t *alias;
+	char **environ;
+	int env_changed;
+	int status;
+
+	char **cmd_buf; /* ptr to cmd ; chain buffer, for memory mgt */
+	int cmd_buf_type; /* CMD_type ||, &&, ; */
+	int readfd;
+	int histcount;
+} info_t;
+
+#define INFO_INIT \
+{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
+	0, 0, 0}
+
+/**
+ * struct builtin - contains builtin str n related fnxtn
+ * @type: builtin cmd flag
+ * @func: fnxtn
+ */
+typedef struct builtin
+{
+	char *type;
 	int (*func)(info_t *);
 } builtin_table;
 
@@ -112,13 +182,13 @@ char *convert_number(long int, int, int);
 void remove_comments(char *);
 
 /* handle_builtin.c */
-int _shellexit(info_t *);
-int _shellcd(info_t *);
-int _shellhelp(info_t *);
+int _myexit(info_t *);
+int _mycd(info_t *);
+int _myhelp(info_t *);
 
 /* handle_builtin1.c */
-int _shellhistory(info_t *);
-int _shellalias(info_t *);
+int _myhistory(info_t *);
+int _myalias(info_t *);
 
 /* handle_getline.c */
 ssize_t get_input(info_t *);
@@ -132,9 +202,9 @@ void free_info(info_t *, int);
 
 /* handle_environ.c */
 char *_getenv(info_t *, const char *);
-int _shellenv(info_t *);
-int _shellsetenv(info_t *);
-int _shellunsetenv(info_t *);
+int _myenv(info_t *);
+int _mysetenv(info_t *);
+int _myunsetenv(info_t *);
 int populate_env_list(info_t *);
 
 /* handle_getenv.c */
@@ -145,77 +215,7 @@ int _setenv(info_t *, char *, char *);
 /* handle_history.c */
 char *get_history_file(info_t *info);
 int write_history(info_t *info);
-int read_history(info_t *info); /**
- * struct liststr - singly str link list
- * @num: the numb input
- * @str: str
- * @next: pts to next node
- */
-typedef struct liststr
-{
-	int num;
-	char *str;
-	struct liststr *next;
-} list_t;
-
-/**
- * struct passinfo - pseudo-arguements to pass a function,
- * uniform prototype for fnxtn ptr struct
- * @arg: str generated from getline containing args
- * @argv: array vector str for arg
- * @path: str command path
- * @argc: arg count
- * @line_count: error count
- * @err_num: error code for exit()s
- * @linecount_flag: if on count this line of input
- * @fname: input filename
- * @env: linked list cp of environ
- * @environ: cmodified cp of environ from LL envrn
- * @history:  node
- * @alias: alias node
- * @env_changed: environ changed
- * @status: return status of last exec.  command
- * @cmd_buf: addr of ptr to cmd_buf, on if chaining
- * @cmd_buf_type: CMD_type ||, &&, ;
- * @readfd: file descriptor from which to read line input
- * @histcount: history line numb cnt
- */
-typedef struct passinfo
-{
-	char *arg;
-	char **argv;
-	char *path;
-	int argc;
-	unsigned int line_count;
-	int err_num;
-	int linecount_flag;
-	char *fname;
-	list_t *env;
-	list_t *history;
-	list_t *alias;
-	char **environ;
-	int env_changed;
-	int status;
-
-	char **cmd_buf; /* ptr to cmd ; chain buffer, for memory mgt */
-	int cmd_buf_type; /* CMD_type ||, &&, ; */
-	int readfd;
-	int histcount;
-} info_t;
-
-#define INFO_INIT \
-{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
-	0, 0, 0}
-
-/**
- * struct builtin - contains builtin str n related fnxtn
- * @type: builtin cmd flag
- * @func: fnxtn
- */
-typedef struct builtin
-{
-	char *type;
-
+int read_history(info_t *info);
 int build_history_list(info_t *info, char *buf, int linecount);
 int renumber_history(info_t *info);
 
@@ -242,4 +242,3 @@ int replace_string(char **, char *);
 
 
 #endif /* _SHELL_H_ */
-
