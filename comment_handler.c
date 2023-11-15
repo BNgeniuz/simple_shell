@@ -1,29 +1,6 @@
 #include "shell.h"
 
 /**
-  * tag_comment - code to handles the '#'
-  * @input: value to be inputed
-  * By : Edmund and Bruce
-  * Return: Always success
-  */
-
-char *tag_comment(char *input)
-{
-	char *comment_harsh;
-
-	comment_harsh = strstr(input, " #");
-
-	if (comment_harsh)
-	{
-		*comment_harsh = '\0';
-	}
-
-	return (input);
-}
-
-#include "shell.h"
-
-/**
  * *_strncpy - str copying
  * @dest: destination of strings to copy
  * @src: str source
@@ -55,6 +32,24 @@ char *_strncpy(char *dest, char *src, int n)
 }
 
 /**
+ * *_strchr - find a xter in a str
+ * @x: str arg parsed
+ * @a: xter to find
+ *
+ * Return: 0 (locating str)
+ */
+char *_strchr(char *x, char a)
+{
+	do {
+		if (*x == a)
+			return (x);
+	} while (*x++ != '\0');
+
+	return (NULL);
+}
+
+
+/**
  * *_strncat - concatenates 2 strs
  * @dest: str first input
  * @src: str second input
@@ -80,21 +75,4 @@ char *_strncat(char *dest, char *src, int n)
 	if (g < n)
 		dest[l] = '\0';
 	return (x);
-}
-
-/**
- * *_strchr - find a xter in a str
- * @x: str arg parsed
- * @a: xter to find
- *
- * Return: 0 (locating str)
- */
-char *_strchr(char *x, char a)
-{
-	do {
-		if (*x == a)
-			return (x);
-	} while (*x++ != '\0');
-
-	return (NULL);
 }
