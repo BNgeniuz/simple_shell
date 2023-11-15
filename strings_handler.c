@@ -5,6 +5,7 @@
  * @destn: destination
  * @source: str source
  *
+ *By: Edmund and Bruce
  * Return: pointer to destination
  */
 char *_strcpy(char *destn, char *source)

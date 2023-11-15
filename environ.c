@@ -4,6 +4,7 @@
  * _shellenv - prints curr environ
  * @info: Struct contain potential arg used to maintain valid prototype.
  *
+ *By: Edmund and Bruce
  * Return: Always 0
  */
 int _shellenv(info_t *info)

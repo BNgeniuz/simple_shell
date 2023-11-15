@@ -5,6 +5,7 @@
  * preceded with line numb, begins 0.
  * @info: Struct contain potential arg used to maintain prototype
  *
+ *By: Edmund and Bruce
  *  Return: 0 (builtin history)
  */
 int _shellhistory(info_t *info)

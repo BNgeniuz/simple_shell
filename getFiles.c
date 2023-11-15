@@ -3,7 +3,7 @@
 /**
  * list_len - determines linked list length
  * @h: first node ptr input
- *
+ * By: Edmund and Bruce
  * Return: 0 (size of list)
  */
 size_t list_len(const list_t *h)

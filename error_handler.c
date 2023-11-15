@@ -3,7 +3,7 @@
 /**
  * _erratoi - converts an ASCII str to an integer
  * @c: the str to convert
- *
+ *By: Edmund and Bruce
  * Return: 0 (ASCII to an integer)
  */
 int _erratoi(char *c)

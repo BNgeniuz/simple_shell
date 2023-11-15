@@ -4,7 +4,7 @@
  * _strcmp - lexicogarphic comparison of 2 str performance
  * @x1: input first str
  * @x2: input second str
- *
+ * By: Edmund and Bruce
  * Return: neg val if x1 < x2, pos val if x1 > x2, 0 if x1 == x2
  */
 int _strcmp(char *x1, char *x2)

@@ -4,6 +4,7 @@
  * get_history_file - prints history file
  * @info: par struct type
  *
+ *By: Edmund and Bruce
  * Return: 0 (allocated str contan history file)
  */
 

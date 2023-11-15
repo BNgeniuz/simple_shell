@@ -4,6 +4,7 @@
  * get_environ - returns str array cpy of the environ
  * @info: struct contain potential arg used to maintain valid prototype
  *
+ *By: Edmund and Bruce
  * Return: 0 (get environ)
  */
 char **get_environ(info_t *info)

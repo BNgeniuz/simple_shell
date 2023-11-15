@@ -4,6 +4,7 @@
  * print_alias - prints str alias
  * @node: the alias node
  *
+ *By: Edmund and Bruce
  * Return: 0 (builtin alias prints)
  */
 int print_alias(list_t *node)
