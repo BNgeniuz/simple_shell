@@ -1,106 +1,215 @@
 #include "shell.h"
 
 /**
-  * shell_exit - Handles the exit status
-  * @args: Arguments to the function
-  * @input: Checks the status of exit
-  * By: Edmund and Bruce
-  * Return: Status of exit, 1 if otherwise
-  */
-
-int shell_exit(char **args, char *input)
+ * _shellhistory - list history, one command by line
+ * preceded with line numb, begins 0.
+ * @info: Struct contain potential arg used to maintain prototype
+ *
+ *  Return: 0 (builtin history)
+ */
+int _shellhistory(info_t *info)
 {
-	char *position_str;
-	int exit_position, l;
+	print_list(info->history);
+	return (0);
+}
 
-	if (args[1] != NULL)
+/**
+ * _shellalias - man alias
+ * @info: Struct contain potential arg used to maintain valid prototype.
+ *
+ * Return: 0 (main builtin alias)
+ */
+int _shellalias(info_t *info)
+{
+	int l = 0;
+	char *q = NULL;
+	list_t *node = NULL;
+
+	if (info->argc == 1)
 	{
-		exit_position = 0;
-		position_str = args[1];
-
-		for (l = 0; position_str[l] != '\0'; l++)
+		node = info->alias;
+		while (node)
 		{
-			if (position_str[l] < '0' || position_str[l] > '9')
-			{
-				handle_exit(input, 2);
-				return (1);
-			}
-			exit_position = exit_position * 10 + (position_str[l] - '0');
+			print_alias(node);
+			node = node->next;
 		}
-		handle_exit(input, exit_position);
+		return (0);
+	}
+	for (l = 1; info->argv[l]; l++)
+	{
+		q = _strchr(info->argv[l], '=');
+		if (q)
+			set_alias(info, info->argv[l]);
+		else
+			print_alias(node_starts_with(info->alias, info->argv[l], '='));
+	}
+
+	return (0);
+}
+
+/**
+ * _shellcd - change dir. of the program
+ * @info: Struct contain potential arg used to maintain
+ * valid prototype
+ *
+ * Return: 0 (change dir)
+ */
+int _shellcd(info_t *info)
+{
+	char *x, *dir, buffer[1024];
+	int curr_dir;
+
+	x = getcwd(buffer, 1024);
+	if (!x)
+		_puts("TODO: >>getcwd failure emsg here<<\n");
+	if (!info->argv[1])
+	{
+		dir = _getenv(info, "HOME=");
+		if (!dir)
+			curr_dir = /* TODO: what this contain? */
+				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+		else
+			curr_dir = chdir(dir);
+	}
+	else if (_strcmp(info->argv[1], "-") == 0)
+	{
+		if (!_getenv(info, "OLDPWD="))
+		{
+			_puts(x);
+			_putchar('\n');
+			return (1);
+		}
+		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
+		curr_dir = /* TODO: what this contain? */
+			chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
+	}
+	else
+		curr_dir = chdir(info->argv[1]);
+	if (curr_dir == -1)
+	{
+		print_error(info, "can't cd to ");
+		_eputs(info->argv[1]), _eputchar('\n');
 	}
 	else
 	{
-		handle_exit(input, 127);
+		_setenv(info, "OLDPWD", _getenv(info, "PWD="));
+		_setenv(info, "PWD", getcwd(buffer, 1024));
+	}
+	return (0);
+}
+
+/**
+ * unset_alias - sets str alias
+ * @info: parameter struct
+ * @str: str input
+ *
+ * Return: 0 (builtin alias)
+ */
+int unset_alias(info_t *info, char *str)
+{
+	char *q, x;
+	int rtn;
+
+	q = _strchr(str, '=');
+	if (!q)
+		return (1);
+	x = *q;
+	*q = 0;
+	rtn = delete_node_at_index(&(info->alias),
+		get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
+	*q = x;
+	return (rtn);
+}
+
+
+
+/**
+ * _shellhelp - change curr dir of the process
+ * @info: Struct contain potential arg used to maintain prototype
+ *
+ * Return: 0 (chnage dir builtin)
+ */
+int _shellhelp(info_t *info)
+{
+	char **ac_array;
+
+	ac_array = info->argv;
+	_puts("help call works fnxtn not yet implemented \n");
+	if (0)
+		_puts(*ac_array); /* temporal att_unused work */
+	return (0);
+}
+
+/**
+ * print_alias - prints str alias
+ * @node: the alias node
+ *
+ * Return: 0 (builtin alias prints)
+ */
+int print_alias(list_t *node)
+{
+	char *q = NULL, *z = NULL;
+
+	if (node)
+	{
+		q = _strchr(node->str, '=');
+		for (z = node->str; z <= q; z++)
+		_putchar(*z);
+		_putchar('\'');
+		_puts(q + 1);
+		_puts("'\n");
+		return (0);
 	}
 	return (1);
 }
 
 /**
-  * handle_cd - changing directory handling
-  * @argc: an array input
-  * @argv: the args vector
-  */
-
-void handle_cd(char **argc, int argv)
+ * set_alias - sets str alias
+ * @info: parameter struct
+ * @str: str input
+ *
+ * Return: 0 (builtin alias set)
+ */
+int set_alias(info_t *info, char *str)
 {
-	const char *home_dir, *old_dir;
+	char *q;
 
-	home_dir = getenv("HOME");
-	old_dir = getenv("PREVPWD");
+	q = _strchr(str, '=');
+	if (!q)
+		return (1);
+	if (!*++q)
+		return (unset_alias(info, str));
 
-	if (argv == 1 || strcmp(argc[1], "~") == 0)
-	{
-		if (!home_dir)
-		{
-			perror("Home environ must be set first");
-			return;
-		}
-		if (chdir(home_dir) != 0)
-			perror("cd");
-	}
-	else if (argv == 2 && strcmp(argc[1], "-") == 0)
-	{
-		if (!old_dir)
-		{
-			perror("PREVPWD environ must be set");
-			return;
-		}
-		if (chdir(old_dir) != 0)
-			perror("cd");
-	}
-	else
-	{
-		if (chdir(argc[1]) != 0)
-			perror("cd");
-	}
+	unset_alias(info, str);
+	return (add_node_end(&(info->alias), str, 0) == NULL);
 }
 
-
 /**
-  * print_env - pwd the current environ variables
-  * @env: arg inputs
-  */
-
-void print_env(char **env)
+ * _shellexit - quits shell
+ * @info: Struct defining potential args sed to maintain
+ * valid prototype exits with a given exit status
+ * (0) if info.argv[0] != "exit"
+ *
+ * Return: 0 (shell exits)
+ */
+int _shellexit(info_t *info)
 {
-	while (*env != NULL)
+	int quits;
+
+	if (info->argv[1]) /* If exit arguement */
 	{
-		write(1, *env, strlen(*env));
-		write(1, "\n", 1);
-		env++;
+		quits = _erratoi(info->argv[1]);
+		if (quits == -1)
+		{
+			info->status = 2;
+			print_error(info, "Illegal num: ");
+			_eputs(info->argv[1]);
+			_eputchar('\n');
+			return (1);
+		}
+		info->err_num = _erratoi(info->argv[1]);
+		return (-2);
 	}
-}
-
-
-/**
-  * handle_exit - exiting the shell code
-  * @input: Input value
-  * @exit_position: Exit the status code
-  */
-
-void handle_exit(char *input, int exit_position)
-{
-	free(input);
-	exit(exit_position);
+	info->err_num = -1;
+	return (-2);
 }
