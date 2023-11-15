@@ -1,9 +1,8 @@
 #include "shell.h"
-
-
 /**
   *print_numbers - Prints numbers from 0 to 9.
   */
+
 void print_numbers(void)
 {
 	char digit;
@@ -15,6 +14,7 @@ void print_numbers(void)
 		digit++;
 	}
 }
+
 /**
   *main - Entry point of the program.
   *
