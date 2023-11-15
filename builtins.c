@@ -139,6 +139,7 @@ int _shellhelp(info_t *info)
 		_puts(*ac_array); /* temporal att_unused work */
 	return (0);
 }
+<<<<<<< HEAD
 
 /**
  * print_alias - prints str alias
@@ -216,3 +217,5 @@ int _shellexit(info_t *info)
 	info->err_num = -1;
 	return (-2);
 }
+=======
+>>>>>>> d2cd69ba21cc22cb3afd2b3cec5f5ba4dd993674
