@@ -146,6 +146,7 @@ int _shellhelp(info_t *info)
  *
  * Return: 0 (builtin alias prints)
  */
+
 int print_alias(list_t *node)
 {
 	char *q = NULL, *z = NULL;
@@ -170,6 +171,7 @@ int print_alias(list_t *node)
  *
  * Return: 0 (builtin alias set)
  */
+
 int set_alias(info_t *info, char *str)
 {
 	char *q;
@@ -192,6 +194,7 @@ int set_alias(info_t *info, char *str)
  *
  * Return: 0 (shell exits)
  */
+
 int _shellexit(info_t *info)
 {
 	int quits;
