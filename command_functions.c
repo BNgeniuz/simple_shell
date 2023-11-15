@@ -215,14 +215,14 @@ char *read_input(void)
 #include "shell.h"
 
 /**
- * my cmd - check if a file is an executable cmd
+ * my_cmd - check if a file is an executable cmd
  * return 1 if true, 0 otherwise
  * @info: info struct type
  * @path: file path
  *
  * Return: 0 (command path)
  */
-int my cmd(info_t *info, char *path)
+int my_cmd(info_t *info, char *path)
 {
 	struct stat st;
 
@@ -274,7 +274,7 @@ char *find_path(info_t *info, char *pathstr, char *cmd)
 		return (NULL);
 	if ((_strlen(cmd) > 2) && starts_with(cmd, "./"))
 	{
-		if (my cmd(info, cmd))
+		if (my_cmd(info, cmd))
 			return (cmd);
 	}
 	while (1)
@@ -289,7 +289,7 @@ char *find_path(info_t *info, char *pathstr, char *cmd)
 				_strcat(path, "/");
 				_strcat(path, cmd);
 			}
-			if (my cmd(info, path))
+			if (my_cmd(info, path))
 				return (path);
 			if (!pathstr[l])
 				break;
