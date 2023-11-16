@@ -69,7 +69,7 @@ ssize_t get_input(info_t *info)
 		check_chain(info, buf, &g, l, length);
 		while (g < length) /* iterate to semi colon ; or end */
 		{
-			if (is_chain(info, buf, &g))
+			if (my_chain(info, buf, &g))
 				break;
 			g++;
 		}
