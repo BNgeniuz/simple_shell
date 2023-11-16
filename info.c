@@ -3,6 +3,8 @@
 /**
  * clear_info - init info_t struct type
  * @info: struct addr type
+ *
+ *By: Edmund and Bruce
  */
 void clear_info(info_t *info)
 {
