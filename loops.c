@@ -5,6 +5,7 @@
  * @info: parameter & return info for struct type
  * @ag: arg vector from main hsh
  *
+ *By: Edmund and Bruce
  * Return: 0 (shell loop)
  */
 int hsh(info_t *info, char **ag)
