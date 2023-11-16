@@ -182,13 +182,13 @@ char *convert_number(long int, int, int);
 void remove_comments(char *);
 
 /* handle_builtin.c */
-int _myexit(info_t *);
-int _mycd(info_t *);
-int _myhelp(info_t *);
+int _shellexit(info_t *);
+int _shellcd(info_t *);
+int _shellhelp(info_t *);
 
 /* handle_builtin1.c */
-int _myhistory(info_t *);
-int _myalias(info_t *);
+int _shellhistory(info_t *);
+int _shellalias(info_t *);
 
 /* handle_getline.c */
 ssize_t get_input(info_t *);
@@ -202,9 +202,9 @@ void free_info(info_t *, int);
 
 /* handle_environ.c */
 char *_getenv(info_t *, const char *);
-int _myenv(info_t *);
-int _mysetenv(info_t *);
-int _myunsetenv(info_t *);
+int _shellenv(info_t *);
+int _shellsetenv(info_t *);
+int _shellunsetenv(info_t *);
 int populate_env_list(info_t *);
 
 /* handle_getenv.c */
