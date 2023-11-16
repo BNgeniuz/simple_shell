@@ -10,46 +10,11 @@ int _shellhelp(info_t *info)
 {
 	char **ac_array;
 
-<<<<<<< HEAD
-	if (node)
-	{
-		q = _strchr(node->str, '=');
-		for (z = node->str; z <= q; z++)
-		_putchar(*z);
-		_putchar('\'');
-		_puts(q + 1);
-		_puts("'\n");
-		return (0);
-	}
-	return (1);
-}
-
-/**
- * set_alias - sets str alias
- * @info: parameter struct
- * @str: str input
- *
- * Return: 0 (builtin alias set)
- */
-int set_alias(info_t *info, char *str)
-{
-	char *q;
-
-	q = _strchr(str, '=');
-	if (!q)
-		return (1);
-	if (!*++q)
-		return (unset_alias(info, str));
-
-	unset_alias(info, str);
-	return (add_node_end(&(info->alias), str, 0) == NULL);
-=======
 	ac_array = info->argv;
-	_puts("help call works fnxtn not yet implemented \n");
+	_puts("assist call wrk fnxtn yet implemented \n");
 	if (0)
-		_puts(*ac_array); /* temporal att_unused work */
+		_puts(*ac_array); /* temprl at_unused wrk */
 	return (0);
->>>>>>> 658f9512ea32ae139d47f4035ebbc05c039e3125
 }
 
 /**
