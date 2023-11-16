@@ -94,7 +94,7 @@ void find_cmd(info_t *info)
 		info->linecount_flag = 0;
 	}
 	for (l = 0, c = 0; info->arg[l]; l++)
-		if (!is_delim(info->arg[l], " \t\n"))
+		if (!split_delim(info->arg[l], " \t\n"))
 			c++;
 	if (!c)
 		return;
@@ -108,7 +108,7 @@ void find_cmd(info_t *info)
 	else
 	{
 		if ((interactive(info) || _getenv(info, "PATH=")
-					|| info->argv[0][0] == '/') && is_cmd(info, info->argv[0]))
+					|| info->argv[0][0] == '/') && my_cmd(info, info->argv[0]))
 			fork_cmd(info);
 		else if (*(info->arg) != '\n')
 		{
