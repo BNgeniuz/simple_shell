@@ -31,7 +31,7 @@ int _shellalias(info_t *info)
 		node = info->alias;
 		while (node)
 		{
-			print_alias(node);
+			print_list(node);
 			node = node->next;
 		}
 		return (0);
@@ -40,9 +40,9 @@ int _shellalias(info_t *info)
 	{
 		q = _strchr(info->argv[l], '=');
 		if (q)
-			set_alias(info, info->argv[l]);
+			_shellalias(info, info->argv[l]);
 		else
-			print_alias(node_starts_with(info->alias, info->argv[l], '='));
+			print_list(node_starts_with(info->alias, info->argv[l], '='));
 	}
 
 	return (0);
