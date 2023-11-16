@@ -40,7 +40,7 @@ int _shellalias(info_t *info)
 	{
 		q = _strchr(info->argv[l], '=');
 		if (q)
-			_shellalias(info, info->argv[l]);
+			set_alias(info, info->argv[l]);
 		else
 			print_list(node_starts_with(info->alias, info->argv[l], '='));
 	}
