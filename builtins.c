@@ -15,7 +15,7 @@ int _shellhistory(info_t *info)
 }
 
 /**
- * _shellalias - man alias
+ * _shellalias - manage alias
  * @info: Struct contain potential arg used to maintain valid prototype.
  *
  * Return: 0 (main builtin alias)
@@ -31,7 +31,7 @@ int _shellalias(info_t *info)
 		node = info->alias;
 		while (node)
 		{
-			print_list(node);
+			print_alias(node);
 			node = node->next;
 		}
 		return (0);
@@ -40,9 +40,9 @@ int _shellalias(info_t *info)
 	{
 		q = _strchr(info->argv[l], '=');
 		if (q)
-			_shellalias(info, info->argv[l]);
+			set_alias(info, info->argv[l]);
 		else
-			print_list(node_starts_with(info->alias, info->argv[l], '='));
+			print_alias(node_starts_with(info->alias, info->argv[l], '='));
 	}
 
 	return (0);
