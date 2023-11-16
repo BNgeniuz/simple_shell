@@ -4,8 +4,8 @@
 /**
  * Header File - shell.h
  *
- * Authors: Godwin Bruce - Nana Esi
- * Cohort: 17 - BENG
+ * Authors: Godwin Bruce - Edmund Boateng
+ * Cohort: 19 - GEBB
 */
 
 #include <stdio.h>
