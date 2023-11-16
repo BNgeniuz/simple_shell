@@ -6,6 +6,7 @@
  * @buf: char buffer
  * @q: addr of curr positn in buf
  *
+ *By: Edmund and Bruce
  * Return: 0 (delimeter chain)
  */
 int my_chain(info_t *info, char *buf, size_t *q)
