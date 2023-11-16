@@ -126,7 +126,7 @@ void find_cmd(info_t *);
 void fork_cmd(info_t *);
 
 /* handle_parser.c */
-int is_cmd(info_t *, char *);
+int my_cmd(info_t *, char *);
 char *dup_chars(char *, int, int);
 char *find_path(info_t *, char *, char *);
 
@@ -170,7 +170,7 @@ int bfree(void **);
 
 /* handle_atoi.c */
 int interactive(info_t *);
-int is_delim(char, char *);
+int split_delim(char, char *);
 int _isalpha(int);
 int _atoi(char *);
 
@@ -234,7 +234,7 @@ list_t *node_starts_with(list_t *, char *, char);
 ssize_t get_node_index(list_t *, list_t *);
 
 /* handle_vars.c */
-int is_chain(info_t *, char *, size_t *);
+int my_chain(info_t *, char *, size_t *);
 void check_chain(info_t *, char *, size_t *, size_t, size_t);
 int replace_alias(info_t *);
 int replace_vars(info_t *);
