@@ -1,16 +1,16 @@
 #include "shell.h"
 
 /**
- * print_alias - prints str alias
- * @node: the alias node
+ * _shellhelp - change curr dir of the process
+ * @info: Struct contain potential arg used to maintain prototype
  *
- *By: Edmund and Bruce
- * Return: 0 (builtin alias prints)
+ * Return: 0 (chnage dir builtin)
  */
-int print_alias(list_t *node)
+int _shellhelp(info_t *info)
 {
-	char *q = NULL, *z = NULL;
+	char **ac_array;
 
+<<<<<<< HEAD
 	if (node)
 	{
 		q = _strchr(node->str, '=');
@@ -43,6 +43,13 @@ int set_alias(info_t *info, char *str)
 
 	unset_alias(info, str);
 	return (add_node_end(&(info->alias), str, 0) == NULL);
+=======
+	ac_array = info->argv;
+	_puts("help call works fnxtn not yet implemented \n");
+	if (0)
+		_puts(*ac_array); /* temporal att_unused work */
+	return (0);
+>>>>>>> 658f9512ea32ae139d47f4035ebbc05c039e3125
 }
 
 /**
@@ -73,4 +80,55 @@ int _shellexit(info_t *info)
 	}
 	info->err_num = -1;
 	return (-2);
+}
+
+/**
+ * _shellcd - change dir. of the program
+ * @info: Struct contain potential arg used to maintain
+ * valid prototype
+ *
+ * Return: 0 (change dir)
+ */
+int _shellcd(info_t *info)
+{
+	char *x, *dir, buffer[1024];
+	int curr_dir;
+
+	x = getcwd(buffer, 1024);
+	if (!x)
+		_puts("TODO: >>getcwd failure emsg here<<\n");
+	if (!info->argv[1])
+	{
+		dir = _getenv(info, "HOME=");
+		if (!dir)
+			curr_dir = /* TODO: what this contain? */
+				chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+		else
+			curr_dir = chdir(dir);
+	}
+	else if (_strcmp(info->argv[1], "-") == 0)
+	{
+		if (!_getenv(info, "OLDPWD="))
+		{
+			_puts(x);
+			_putchar('\n');
+			return (1);
+		}
+		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
+		curr_dir = /* TODO: what this contain? */
+			chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
+	}
+	else
+		curr_dir = chdir(info->argv[1]);
+	if (curr_dir == -1)
+	{
+		print_error(info, "can't cd to ");
+		_eputs(info->argv[1]), _eputchar('\n');
+	}
+	else
+	{
+		_setenv(info, "OLDPWD", _getenv(info, "PWD="));
+		_setenv(info, "PWD", getcwd(buffer, 1024));
+	}
+	return (0);
 }
